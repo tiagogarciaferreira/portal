@@ -1,0 +1,132 @@
+{"properties": [
+  {
+    "name": "spring.datasource.maximum-pool-size",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.maximum-pool-size'"
+  },
+  {
+    "name": "spring.jpa.hibernate.dialect",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.jpa.hibernate.dialect'"
+  },
+  {
+    "name": "server.servlet.encoding.charset",
+    "type": "java.lang.String",
+    "description": "A description for 'server.servlet.encoding.charset'"
+  },
+  {
+    "name": "server.servlet.encoding.enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'server.servlet.encoding.enabled'"
+  },
+  {
+    "name": "spring.datasource.validationQuery",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.validationQuery'"
+  },
+  {
+    "name": "spring.datasource.validationQuery",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.validationQuery'"
+  },
+  {
+    "name": "spring.datasource.validationQuery",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.validationQuery'"
+  },
+  {
+    "name": "spring.datasource.validationQuery",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.validationQuery'"
+  },
+  {
+    "name": "dominio.base.url",
+    "type": "java.lang.String",
+    "description": "A description for 'dominio.base.url'"
+  },
+  {
+    "name": "amazon.ACCESSKEY",
+    "type": "java.lang.String",
+    "description": "A description for 'amazon.ACCESSKEY'"
+  },
+  {
+    "name": "amazon.SECRETKEY",
+    "type": "java.lang.String",
+    "description": "A description for 'amazon.SECRETKEY'"
+  },
+  {
+    "name": "amazon.URL_BASE",
+    "type": "java.lang.String",
+    "description": "A description for 'amazon.URL_BASE'"
+  },
+  {
+    "name": "amazon.BUCKET",
+    "type": "java.lang.String",
+    "description": "A description for 'amazon.BUCKET'"
+  },
+  {
+    "name": "amazon.FOLDER_IMG",
+    "type": "java.lang.String",
+    "description": "A description for 'amazon.FOLDER_IMG'"
+  },
+  {
+    "name": "amazon.ACCESSKEY",
+    "type": "java.lang.String",
+    "description": "A description for 'amazon.ACCESSKEY'"
+  },
+  {
+    "name": "mail.remetente.senha",
+    "type": "java.lang.String",
+    "description": "A description for 'mail.remetente.senha'"
+  },
+  {
+    "name": "mail.remetente.assinatura",
+    "type": "java.lang.String",
+    "description": "A description for 'mail.remetente.assinatura'"
+  },
+  {
+    "name": "amazon.folder.img",
+    "type": "java.lang.String",
+    "description": "A description for 'amazon.folder.img'"
+  },
+  {
+    "name": "amazon.bucket",
+    "type": "java.lang.String",
+    "description": "A description for 'amazon.bucket'"
+  },
+  {
+    "name": "mail.remetente.email",
+    "type": "java.lang.String",
+    "description": "A description for 'mail.remetente.email'"
+  },
+  {
+    "name": "amazon.url.base",
+    "type": "java.lang.String",
+    "description": "A description for 'amazon.url.base'"
+  },
+  {
+    "name": "amazon.access.key",
+    "type": "java.lang.String",
+    "description": "A description for 'amazon.access.key'"
+  },
+  {
+    "name": "amazon.secret.key",
+    "type": "java.lang.String",
+    "description": "A description for 'amazon.secret.key'"
+  },
+  {
+    "name": "task.time.cron",
+    "type": "java.lang.String",
+    "description": "A description for 'task.time.cron'"
+  },
+  {
+    "name": "spring.datasource.maximum-pool-size",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.maximum-pool-size'"
+  },
+  {
+    "name": "spring.datasource.maximum-pool-size",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.maximum-pool-size'"
+  }
+]}

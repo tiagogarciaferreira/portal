@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+	<meta http-equiv="Content_Type" content="text/html; charset=UTF-8">
+</head>
+<nav class="navbar navbar-expand-lg navbar-light fundo" style="z-index: 9999;">
+	<a class="navbar-brand" th:href="@{/}"><img  alt="3E" th:src="@{/img/logo-branco.png}" width="50px" height="50px"/></a>
+	<button class="navbar-toggler text-white" type="button" data-toggle="collapse"
+		data-target="#navbarSupportedContent"
+		aria-controls="navbarSupportedContent" aria-expanded="false"
+		aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+		<ul class="navbar-nav">
+			<li class="nav-item "><a class="nav-link" th:href="@{/}"><b>Inicío</b> </a></li>
+			<li class="nav-item "><a class="nav-link"  th:href="@{/publico/sobre}"><b>Sobre</b> </a></li>
+			<li class="nav-item"><a class="nav-link"  th:href="@{/noticia/listar-noticias?buscar_por=}"><b>Notícias</b>  </a></li>
+			<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" id="navbarDropdownEstaudante"
+				role="button" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> <b>Estudante</b> </a>
+				<div class="dropdown-menu fundo" aria-labelledby="navbarDropdownEstaudante">
+					<a class="dropdown-item " href="#">Entrar</a> 
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="#">Cadastrar-se</a>
+				</div>
+			</li>
+			<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" id="navbarDropdownEmpresa"
+				role="button" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> <b>Empresa</b> </a>
+				<div class="dropdown-menu fundo" aria-labelledby="navbarDropdownEmpresa">
+					<a class="dropdown-item" href="#">Entrar</a> 
+				    <div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="#">Cadastrar-se</a>
+				</div>
+			</li>
+			<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" id="navbarDropdownEstagio"
+				role="button" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> <b>Estágio</b> </a>
+				<div class="dropdown-menu fundo" aria-labelledby="navbarDropdownEstagio">
+					<a class="dropdown-item" th:href="@{/estagio/visualizar}">Como funciona</a> 
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" th:href="@{/processo-seletivo/visualizar}">Processo seletivo</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" target="_blank" href="https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11788.htm">Lei do estágio</a>
+				</div>
+			</li>
+			<li class="nav-item"><a th:href="@{/contato/cadastrar}" class="nav-link"><b>Contato</b> </a></li>
+			
+		</ul>
+	</div>
+</nav>
+</html>

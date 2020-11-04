@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="@{componente/LayoutPublico.html}">
+
+<head>
+	<title>Ler notícia - 3E Gestão de Pessoas</title>
+</head>
+
+<section layout:fragment="conteudo">
+<div class="container">
+<div class="card marg">
+<div class="card-header border-r fundo"><h5><b class="text-white">Notícias 3E</b></h5></div>
+
+	<form id="form_busca_noticia_list" name="form_busca_noticia_list"
+			th:action="@{/noticia/listar-noticias}" method="GET" class="marg">
+						
+		   	<div class="form-row">
+				<div class="input-group mb-3 col-md-6">
+				  <select id="buscar_por" th:value="${buscar_por}"  class="form-control font-weight-bold" name="buscar_por">
+					<option value="0" selected >Todas</option>
+					<option th:each="categoria : ${categorias_lista}" th:value="${categoria.idCategoria}" th:text="${categoria.nome}"></option>
+				  </select>
+				  
+				  <div class="input-group-append">
+				    <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+				  </div>
+				</div>
+			</div>
+
+	</form>
+<div th:if="${not #lists.isEmpty(noticias_todas.content)}" class="row row-cols-1 row-cols-md-3">
+<th:block th:each="noticia,iStat: ${noticias_todas}">  
+  <div class="col mb-4">
+    <div class="card h-100">
+	  <h5 class="card-header text-white fundo" th:text="${noticia.categoria.nome}"></h5>
+      <img th:with="img=${'/images/noticias/' + noticia.imagens[0].nome}" th:src="@{${img}}" class="card-img-top">
+      <div class="card-body">
+        <a th:text="${noticia.titulo}"></a>
+        <br><a class="btn btn-info btn-sm card-link" title="Ler notícia" th:href="@{/noticia/leitura/{idnoticia}(idnoticia=${noticia.idNoticia}, token=${noticia.token})}"><b>LER NOTÍCIA</b></a>
+      </div>
+    <div class="text-right"><span class="text-sm-left fonte13" title="Localização"> <i class="fas fa-map-marker-alt"></i> <span th:text="${noticia.emLocal}"> </span></span></div>
+    <div class="card-footer fundo">
+      	<small class=" text-white">
+		    <span title="Criado por"><i class="far fa-user"></i> 3ERS</span>
+		    <span title="Data"> <i class="far fa-calendar-minus"> </i> <span th:text="${#temporals.format(noticia.dataCadastro, 'dd/MM/yyyy HH:mm:ss')}"></span> </span>
+      </small>
+    </div>
+    </div>
+  </div>
+</th:block>
+</div>
+
+<div th:if="${#lists.isEmpty(noticias_todas.content)}" class="d-flex justify-content-center">
+      <h5><b class="marg text-info">Nenhum resultado encontrado.</b></h5>
+</div>
+
+<nav class="align-self-center" th:if="${not #lists.isEmpty(noticias_todas.content)}">
+	  <ul class="pagination">
+	    <li th:if="${noticias_todas.hasPrevious()}" class="page-item">
+	      <a class="page-link" th:href="@{/noticia/listar-noticias(page=${noticias_todas.number-1}, size=${noticias_todas.size}, buscar_por=${buscar_por})}"><span aria-hidden="true">&laquo;</span></a>
+	    </li>
+	    <th:block th:each="number: ${#numbers.sequence(0,noticias_todas.totalPages-1)}">
+			<li class="page-item"><a class="page-link font-weight-bold fundo text-dark" th:if="${param.page == null && number == 0}" th:href="@{/noticia/listar-noticias(page=${number}, size=${noticias_todas.size}, buscar_por=${buscar_por})}" th:text="${number+1}"></a></li>
+			<li class="page-item"><a class="page-link font-weight-bold text-dark" th:if="${param.page == null && number != 0}" th:href="@{/noticia/listar-noticias(page=${number}, size=${noticias_todas.size}, buscar_por=${buscar_por})}" th:text="${number+1}"></a></li>
+			<li class="page-item"><a class="page-link font-weight-bold fundo text-dark" th:if="${param.page != null && #strings.equals(param.page, #strings.toString(number))}" th:href="@{/noticia/listar-noticias(page=${number}, size=${noticias_todas.size}, buscar_por=${buscar_por})}" th:text="${number+1}"></a></li>
+			<li class="page-item"><a class="page-link font-weight-bold text-dark" th:if="${param.page != null && not #strings.equals(param.page, #strings.toString(number))}" th:href="@{/noticia/listar-noticias(page=${number}, size=${noticias_todas.size}, buscar_por=${buscar_por})}" th:text="${number+1}"></a></li>
+	    </th:block>
+	    <li th:if="${noticias_todas.hasNext()}" class="page-item">
+	      <a class="page-link" th:href="@{/noticia/listar-noticias(page=${noticias_todas.number+1}, size=${noticias_todas.size}, buscar_por=${buscar_por})}"><span aria-hidden="true">&raquo;</span></a>
+	    </li>
+	  </ul>
+	</nav>
+
+</div>
+
+</div>
+</section>
+</html>

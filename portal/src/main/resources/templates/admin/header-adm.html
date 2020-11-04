@@ -1,0 +1,38 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+	<meta http-equiv="Content_Type" content="text/html; charset=UTF-8">
+</head>
+
+<nav class="navbar navbar-expand-lg navbar-light fundo">
+	<a class="navbar-brand"><img  alt="3E" th:src="@{/img/logo-branco.png}" width="50px" height="50px"/></a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse"
+		data-target="#navbarSupportedContent"
+		aria-controls="navbarSupportedContent" aria-expanded="false"
+		aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+		<ul class="navbar-nav">
+			<li sec:authorize="hasAnyAuthority('ROLE_DASHBOARD')" class="nav-item "><a class="nav-link" th:href="@{/dashboard/home}"><b>Inicío</b></a></li>
+			<li sec:authorize="hasAnyAuthority('ROLE_NEWSLETTER_MENU')" class="nav-item "><a class="nav-link" th:href="@{/newsletter/listar}"><b>Newsletter</b></a></li>
+			<li sec:authorize="hasAnyAuthority('ROLE_USUARIO_MENU')" class="nav-item"><a class="nav-link" th:href="@{/usuario/listar}"><b>Usuário</b></a></li>
+			<li sec:authorize="hasAnyAuthority('ROLE_NOTICIA_MENU')" class="nav-item"><a class="nav-link" th:href="@{/noticia/listar}"><b>Notícia</b></a></li>
+			<li sec:authorize="hasAnyAuthority('ROLE_CATEGORIA_MENU')" class="nav-item"><a class="nav-link" th:href="@{/categoria/listar}"><b>Categoria</b></a></li>
+			<li sec:authorize="hasAnyAuthority('ROLE_IMAGEM_MENU')" class="nav-item"><a class="nav-link" th:href="@{/imagem/listar}"><b>Imagem</b></a></li>
+			<li sec:authorize="hasAnyAuthority('ROLE_CONTATO_MENU')" class="nav-item"><a class="nav-link" th:href="@{/contato/listar}"><b>Contato</b></a></li>
+			<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" id="navbarDropdownEstaudante"
+				role="button" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> <b> <img th:src="@{/img/user.png}" height="32px" width="32px"> </b> </a>
+				<div class="dropdown-menu fundo" aria-labelledby="navbarDropdownEstaudante">
+					<a class="dropdown-item disabled " href="#!"><span sec:authentication="principal.usuario.nomeCompleto"></span></a> 
+					<a sec:authorize="hasAnyAuthority('ROLE_PERFIL_MENU')" class="dropdown-item " th:href="@{/perfil/visualizar}">Perfil</a> 
+					<a class="dropdown-item" th:href="@{/logout}">Sair</a>
+				</div>
+			</li>
+		</ul>
+	</div>
+</nav>
+</html>

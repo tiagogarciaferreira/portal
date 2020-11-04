@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="@{componente/LayoutPublico.html}">
+
+<section layout:fragment="conteudo">
+<div th:include="@{componente/mensagem.html}" style="padding-top: 20px;"></div>
+<div class="container" style="margin-top: 10px;z-index: 9990;">
+	<div id="carouselIndicators" class="carousel slide border-r" data-ride="carousel">
+		  <ol th:if="${not #lists.isEmpty(noticias_index)}" class="carousel-indicators">
+		    <li th:if="${#lists.size(noticias_index) > 0}" data-target="#carouselIndicators" data-slide-to="0" class="active"></li>
+		    <li th:if="${#lists.size(noticias_index) > 1}" data-target="#carouselIndicators" data-slide-to="1"></li>
+		    <li th:if="${#lists.size(noticias_index) > 2}" data-target="#carouselIndicators" data-slide-to="2"></li>
+		  </ol>
+		  <div class="carousel-inner border-r">
+		  	<th:block th:if="${not #lists.isEmpty(noticias_index)}" th:each="noticia,iStat: ${noticias_index}">
+			  
+			    <div th:if="${iStat.index > 0 && iStat.index < 3}" class="carousel-item bg-light h-75">
+			     	<a th:href="@{/noticia/leitura/{idnoticia}(idnoticia=${noticia.idNoticia}, token=${noticia.token})}">
+			     		<img th:with="img=${'/images/noticias/' + noticia.imagens[0].nome}" th:src="@{${img}}" class="rounded mx-auto d-block w-100">
+			     	</a>
+			     	<div class="carousel-caption d-none d-md-block">
+			        	<a th:href="@{/noticia/leitura/{idnoticia}(idnoticia=${noticia.idNoticia}, token=${noticia.token})}" class="card-title btn btn-outline-info btn-lg btn-block" th:text="${noticia.titulo}"></a>
+			      </div>
+			    </div>
+			    <div th:if="${iStat.index == 0}" class="carousel-item active bg-light h-75">
+			     	<a th:href="@{/noticia/leitura/{idnoticia}(idnoticia=${noticia.idNoticia}, token=${noticia.token})}">
+			     		<img th:with="img=${'/images/noticias/' + noticia.imagens[0].nome}" th:src="@{${img}}" class="rounded mx-auto d-block w-100">
+			     	</a>
+			     	<div class="carousel-caption d-none d-md-block">
+			        	<a th:href="@{/noticia/leitura/{idnoticia}(idnoticia=${noticia.idNoticia}, token=${noticia.token})}" class="card-title btn btn-outline-info btn-lg btn-block" th:text="${noticia.titulo}"></a>
+			      </div>
+			    </div>
+			</th:block>
+			 <div th:if="${#lists.isEmpty(noticias_index)}" class="carousel-item active">
+			     <img th:src="@{/img/vazio.png}" class="rounded mx-auto d-block w-75">
+			 </div>
+			
+		  </div>
+		  <a class="carousel-control-prev" href="#carouselIndicators" role="button" data-slide="prev">
+		    <span class="carousel-control-prev-icon bg-info border-r" aria-hidden="true"></span>
+		    <span class="sr-only">Anterior</span>
+		  </a>
+		  <a class="carousel-control-next" href="#carouselIndicators" role="button" data-slide="next">
+		    <span class="carousel-control-next-icon bg-info border-r" aria-hidden="true"></span>
+		    <span class="sr-only">Próximo</span>
+		  </a>
+	</div>
+<div class="card-header text-center border-r text-primary" th:if="${not #lists.isEmpty(noticias_index) && #lists.size(noticias_index) > 3}"><h6><b class="text-dark">NOTÍCIAS RECENTES</b></h6></div>
+<div th:if="${not #lists.isEmpty(noticias_index) && #lists.size(noticias_index) > 3}" class="row row-cols-1 row-cols-md-3">
+<th:block th:each="noticia,iStat: ${noticias_index}">  
+  <div th:if="${iStat.index > 2}" class="col mb-4">
+    <div class="card h-100">
+	  <h5 class="card-header text-white fundo" th:text="${noticia.categoria.nome}"></h5>
+      <img th:with="img=${'/images/noticias/' + noticia.imagens[0].nome}" th:src="@{${img}}" class="card-img-top h-50">
+      <div class="card-body">
+        <a th:text="${noticia.titulo}"></a>
+        <br><a class="btn btn-info btn-sm card-link" title="Ler notícia" th:href="@{/noticia/leitura/{idnoticia}(idnoticia=${noticia.idNoticia}, token=${noticia.token})}"><b>LER NOTÍCIA</b></a>
+      </div>
+    <div class="text-right"><span class="text-sm-left fonte13" title="Localização"> <i class="fas fa-map-marker-alt"></i> <span th:text="${noticia.emLocal}"> </span></span></div>
+    <div class="card-footer fundo">
+      	<small class="text-white">
+		    <span title="Criado por"><i class="far fa-user"></i> 3ERS</span>
+		    <span title="Data"> <i class="far fa-calendar-minus"> </i> <span th:text="${#temporals.format(noticia.dataCadastro, 'dd/MM/yyyy HH:mm:ss')}"></span> </span>
+      </small>
+    </div>
+    </div>
+  </div>
+</th:block>
+</div>
+
+<div th:if="${not #lists.isEmpty(noticias_index) && #lists.size(noticias_index) > 8}" class="alert-info text-center text-black border-r" role="alert"> <a class="nav-link font-weight-bold" th:href="@{/noticia/listar-noticias(buscar_por=${buscar_por})}"> MAIS NOTÍCIAS</a></div>
+<br>		
+<div class="card mb-3">
+<div class="card-header fundo"><h5><b class="text-white">Newsletter 3E</b></h5></div>
+  <div class="text-center"><img th:src="@{/img/envelope.png}" height="200px" width="200px"></div>
+  <div class="card-body">
+    <h5 class="card-title">Notificações via email</h5>
+    <p class="card-text">Receba diariamente em eu email o boletín de novas notícias da 3E Gestão de Pessoas. Para se inscrever, preencha os dados abaixo gratuitamente.</p>
+
+				<form id="form_newsletter" name="form_newsletter"
+					th:action="@{/newsletter/salvar}" method="POST" th:object="${newsletter}">
+					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label for="nomeCompleto" class="label-input">Nome<span class="text-danger" data-toggle="tooltip" data-placement="bottom" title="Campo obrigatório">*</span></label> <input id="nomeCompleto" type="text"
+								class="form-control" name="nomeCompleto" th:field="*{nomeCompleto}" placeholder="Informe seu nome">
+						</div>
+						<div class="form-group col-md-6">
+							<label for="email" class="label-input">Email<span class="text-danger" data-toggle="tooltip" data-placement="bottom" title="Campo obrigatório">*</span></label> <input id="email" type="email"
+								class="form-control" name="email" th:field="*{email}" placeholder="Informe seu email">
+								<small id="emailHelp" class="form-text text-muted">Nunca compartilharemos seu email com terceiros.</small>
+						</div>
+					</div>
+					<button type="submit" class="btn btn-primary">
+						<i class="fas fa-paper-plane"></i> Cadastrar
+					</button>
+					<button type="reset" class="btn btn-danger">
+						<i class="fas fa-window-close"></i> Cancelar
+					</button>
+				</form>
+			</div>
+</div>
+		
+</div>
+</section>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="@{admin/LayoutPrivate.html}">
+
+<head>
+	<title>Pesquisa de Usuários - 3E Gestão de Pessoas</title>
+</head>
+
+<section layout:fragment="conteudo">
+<div class="container marg">
+<div th:include="@{componente/mensagem.html}"></div>
+<div class="card mb-3">
+<div class="card-header fundo"><h5><b class="text-white">Pesquisa de usuários</b></h5></div>
+<div class="card-body">
+
+<div  sec:authorize="hasAnyAuthority({'ROLE_USUARIO_LISTAR'})">
+
+	<form id="form_busca_usuario" name="form_busca_usuario"
+			th:action="@{/usuario/pesquisar}" method="GET" class="marg">
+
+			<div class="form-row">
+				<div class="input-group mb-3 col-md-6">
+				  <input id="buscar_por" autocapitalize="none" type="text" class="form-control" name="buscar_por" th:value="${buscar_por}" placeholder="Busca por Nome">
+				  <div class="input-group-append">
+				    <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+				  </div>
+				</div>
+				<div class="form-group col-md-6">
+					<a th:href="@{/usuario/cadastrar}" class="btn btn-primary"><i class="fas fa-plus-circle"></i> <b>Novo</b></a>
+			   </div>
+			</div>
+	</form>
+
+		 	<div class="table-responsive">
+		 	<table class="table table-bordered table-hover text-center table-sm">
+			<thead  class="table-sm">
+	            <tr>
+	                <th>Nome </th>
+	                <th>Status</th>
+	                <th>Tipo/Acesso</th>
+	                <th>Ações</th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	        
+	        	<tr th:if="${not #lists.isEmpty(usuarios_lista.content)}" th:each="usuario: ${usuarios_lista.content}">
+	        		<td class="align-middle" th:text="${usuario.nomeCompleto}"></td>
+	               
+	                <td class="align-middle" sec:authorize="hasAnyAuthority({'ROLE_USUARIO_LIBERAR'})" th:if="${usuario.status == true}"><a data-toggle="tooltip" data-placement="bottom" title="Desativar" style="font-size: 20px;" th:href="@{/usuario/status/{idusuario}(idusuario=${usuario.idUsuario},token=${usuario.token})}"> <i class="fas fa-toggle-on text-success"></i></a> </td>
+	                <td class="align-middle" sec:authorize="hasAnyAuthority({'ROLE_USUARIO_LIBERAR'})" th:if="${usuario.status == false}"><a data-toggle="tooltip" data-placement="bottom" title="Ativar" style="font-size: 20px;" th:href="@{/usuario/status/{idusuario}(idusuario=${usuario.idUsuario},token=${usuario.token})}"> <i class="fas fa-toggle-off text-danger"></i></a> </td>
+	               
+	                <td class="align-middle" th:text="${usuario.tipoAcesso.nome}"></td>
+	                <td class="align-middle" th:with="contexto=${#httpServletRequest.getContextPath()+'/usuario/remover/codigoid'}">
+	                   <a sec:authorize="hasAnyAuthority({'ROLE_USUARIO_EDITAR'})" data-toggle="tooltip" data-placement="bottom" title="Editar" class="fonte18" th:href="@{/usuario/editar/{idusuario}(idusuario=${usuario.idUsuario},token=${usuario.token})}"> <i class="far fa-edit text-primary"></i></a> 
+	                   <a sec:authorize="hasAnyAuthority({'ROLE_USUARIO_DELETAR'})" th:id="${usuario.idUsuario+'?token='+usuario.token}" class="fonte18" href="#!"  data-toggle="modal" data-target="#modal1remover" th:onclick="setId(this,[[${contexto}]]);" ><i class="fas fa-trash-alt text-danger" data-toggle="tooltip" data-placement="bottom" title="Excluir"></i></a>
+	                </td>
+	                
+	        	</tr>
+	        	<tr th:if="${#lists.isEmpty(usuarios_lista.content)}" class="text-danger" title="Nenhum resultado encontrado">
+	        	 	<td class="text-center"><b>- - -</b></td> 
+	        	 	<td class="text-center"><b>- - -</b></td> 
+	        	 	<td class="text-center"><b>- - -</b></td> 
+	        	 	<td class="text-center"><b>- - -</b></td> 
+	        	 </tr>	 
+	        	        	
+	        </tbody>
+	        
+	        <tfoot class="table-sm" th:if="${not #lists.isEmpty(usuarios_lista.content)}">
+	            <tr>
+	                <th>Nome </th>
+	                <th>Status</th>
+	                <th>Tipo/Acesso</th>
+	                <th>Ações</th>
+	            </tr>
+	        </tfoot>
+	    </table>
+	   <div class="text-center">
+		    <b th:if="${#lists.isEmpty(usuarios_lista.content)}" class="text-danger">Nenhum resultado encontrado</b>
+	    </div> 
+	    
+	    </div>
+	    
+	    <nav th:if="${not #lists.isEmpty(usuarios_lista.content)}">
+	  <ul class="pagination justify-content-center">
+	    <li th:if="${usuarios_lista.hasPrevious()}" class="page-item">
+	      <a class="page-link" th:href="@{/usuario/pesquisar(page=${usuarios_lista.number-1}, size=${usuarios_lista.size}, buscar_por=${buscar_por})}"><span aria-hidden="true">&laquo;</span></a>
+	    </li>
+	    <th:block th:each="number: ${#numbers.sequence(0,usuarios_lista.totalPages-1)}">
+			<li class="page-item"><a class="page-link font-weight-bold fundo text-dark" th:if="${param.page == null && number == 0}" th:href="@{/usuario/pesquisar(page=${number}, size=${usuarios_lista.size}, buscar_por=${buscar_por})}" th:text="${number+1}"></a></li>
+			<li class="page-item"><a class="page-link font-weight-bold text-dark" th:if="${param.page == null && number != 0}" th:href="@{/usuario/pesquisar(page=${number}, size=${usuarios_lista.size}, buscar_por=${buscar_por})}" th:text="${number+1}"></a></li>
+			<li class="page-item"><a class="page-link font-weight-bold fundo text-dark" th:if="${param.page != null && #strings.equals(param.page, #strings.toString(number))}" th:href="@{/usuario/pesquisar(page=${number}, size=${usuarios_lista.size}, buscar_por=${buscar_por})}" th:text="${number+1}"></a></li>
+			<li class="page-item"><a class="page-link font-weight-bold text-dark" th:if="${param.page != null && not #strings.equals(param.page, #strings.toString(number))}" th:href="@{/usuario/pesquisar(page=${number}, size=${usuarios_lista.size}, buscar_por=${buscar_por})}" th:text="${number+1}"></a></li>
+	    </th:block>
+	    <li th:if="${usuarios_lista.hasNext()}" class="page-item">
+	      <a class="page-link" th:href="@{/usuario/pesquisar(page=${usuarios_lista.number+1}, size=${usuarios_lista.size}, buscar_por=${buscar_por})}"><span aria-hidden="true">&raquo;</span></a>
+	    </li>
+	  </ul>
+	</nav> 
+
+</div>
+	
+
+</div>
+</div>
+</div>
+<div th:include="@{admin/modal-remove.html}"></div>
+</section>	
+</html>

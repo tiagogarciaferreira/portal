@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<meta http-equiv="Content_Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link type="text/css"  rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+	<link type="text/css"  rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+	<link type="text/css"  rel="stylesheet" th:href="@{/editor/css/jquery-te-1.4.0.css}" />
+	<link type="text/css"  rel="stylesheet" th:href="@{/bootstrap/css/bootstrap-datepicker3.standalone.min.css}">
+	<link type="text/css"  rel="stylesheet" th:href="@{/select/css/select2.min.css}"/>
+	<link type="text/css"  rel="stylesheet" th:href="@{/editor/css/jquery-te-1.4.0.css}" />
+	<link type="text/css"  rel="stylesheet" th:href="@{/css/css-all.css}" />
+	<link type="image/png" rel="icon" 	    th:href="@{/img/icon.ico}" />
+	<title>Dashboard - 3E Gestão de Pessoas</title>
+</head>
+<body>
+	<header th:replace="@{admin/header-adm.html}"></header>
+	<section layout:fragment="conteudo">
+		<p>Conteúdo principal</p>
+	</section>
+	<footer th:replace="@{admin/footer-adm.html}"></footer>
+	<script type="text/javascript" th:src="@{/jquery/jquery.min.js}" ></script>
+	<script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<script type="text/javascript" th:src="@{/select/js/select2.min.js}"></script>
+    <script type="text/javascript" th:src="@{/editor/js/jquery-te-1.4.0.min.js}"></script>
+	<script type="text/javascript" th:src="@{/bootstrap/js/bootstrap-datepicker.min.js}"></script>
+    <script type="text/javascript" th:src="@{/bootstrap/js/bootstrap-datepicker.pt-BR.min.js}"></script>	
+	<script type="text/javascript" th:src="@{/validation/jquery.validate.min.js}" ></script>
+	<script type="text/javascript" th:src="@{/validation/additional-methods.min.js}"></script>
+	<script type="text/javascript" th:src="@{/validation/messages_pt_BR.js}"></script>
+	<script type="text/javascript" th:src="@{/mask/jquery.mask.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/validation.private.js}"></script>
+    <script type="text/javascript" th:src="@{/js/js-all.js}"></script>
+    <script type="text/javascript">$("#telefone").mask("(00) 0 0000-0000");</script>	
+    <script type="text/javascript" th:if="${modal == true}"> $('#modalCategoria').modal('show');</script>
+      <script type="text/javascript">$("#texto").jqte();</script>
+</body>
+</html>

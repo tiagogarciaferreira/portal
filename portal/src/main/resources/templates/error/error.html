@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+	<meta http-equiv="Content_Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link type="text/css"  rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+	<link type="text/css"  rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+	<link type="text/css"  rel="stylesheet" th:href="@{/css/css-all.css}" />
+	<link type="image/png" rel="icon" 	    th:href="@{/img/icon.ico}" />
+	<title>Erro - 3E Gestão de Pessoas</title>
+</head>
+
+<body>
+<div class="container marg col-md-8">
+<div class="card mb-3">
+<div class="card-header fundo"><h5><b class="text-white">Erro</b></h5></div>
+<div class="text-center card-header card-header-none"><a th:href="@{/}"><img title="3E" alt="3E" th:src="@{/img/logo.png}" /></a></div>
+  
+  <div class="list-group-item bg-danger text-left text-white font-weight-bold">
+  	<span th:if="${code == 400}"><i class="fas fa-window-close"></i> Desculpe! Solicitação incorreta.</span>
+  	<span th:if="${code == 404}"><i class="fas fa-window-close"></i> Desculpe! Recurso não encontrado.</span>
+  	<span th:if="${code == 405}"><i class="fas fa-window-close"></i> Desculpe! Solicitação não permitida.</span>
+  	<span th:if="${code == 500}"><i class="fas fa-window-close"></i> Desculpe! Ocorreu um erro na sua solicitação.</span>
+  	<span th:if="${code == 0}"><i class="fas fa-window-close"></i> Desculpe! Ocorreu um erro.</span>
+  </div>
+  <div class="list-group-item text-center">
+    <div class="form-group col-md-12">
+		<a style="text-decoration: none;" href="#!" class="font-weight-bold btn btn-success form-group col-md-4" onclick="goBack()"><i class="fas fa-arrow-circle-left"></i> Voltar</a>
+	</div>
+  </div>  
+  <div class="card-header fundo text-center" th:include="@{componente/rodape.html}"></div>
+</div>
+</div>
+
+	<script type="text/javascript" th:src="@{/jquery/jquery.min.js}" ></script>
+	<script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/js-all.js}"></script>
+
+</body>
+</html>

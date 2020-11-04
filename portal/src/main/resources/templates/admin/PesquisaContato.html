@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="@{admin/LayoutPrivate.html}">
+
+<head>
+	<title>Pesquisa de Contatos - 3E Gestão de Pessoas</title>
+</head>
+
+<section layout:fragment="conteudo">
+<div class="container marg">
+<div th:include="@{componente/mensagem.html}"></div>
+<div class="card mb-3">
+<div class="card-header fundo"><h5><b class="text-white">Pesquisa de contatos</b></h5></div>
+<div sec:authorize="hasAnyAuthority({'ROLE_CONTATO_LISTAR'})" class="card-body">
+
+	<form id="form_busca_contato" name="form_busca_contato"
+			action="/contato/pesquisar" method="GET" class="marg">
+						
+			<div class="form-row">
+				<div class="input-group mb-3 col-md-6">
+				  <input id="buscar_por" autocapitalize="none" type="text" class="form-control" name="buscar_por" th:value="${buscar_por}" placeholder="Busca por Nome">
+				  <div class="input-group-append">
+				    <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+				  </div>
+				</div>
+			</div>
+	</form>
+	
+	<div class="table-responsive">
+		<table class="table table-bordered table-hover text-center table-sm">
+			<thead>
+	            <tr>
+	                <th>Datalhes </th>
+	                <th>Nome</th>
+	                <th>Tipo</th>
+	                <th>Respondido</th>
+	                <th>Ações</th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	        
+	        	<tr th:if="${not #lists.isEmpty(contatos_lista.content)}" th:each="contato: ${contatos_lista.content}" >
+	        		<td class="align-middle" >
+	        			<a href="#!" data-toggle="modal" th:data-target="${'#modal'+contato.idContato}"><i class="fas fa-search"></i></a>
+						
+						<div th:id="${'modal'+contato.idContato}" class="modal fade" tabindex="-1" role="dialog">
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title text-info">Datalhes do contato</h5>
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      <div class="modal-body text-left">
+						            <span><b>Email: </b><i th:text="${contato.email}"> </i> </span>
+									<br><span><b>Assunto: </b> <i th:text="${contato.assunto}"> </i> </span>
+									<br><span><b>Mensagem: </b><i th:text="${contato.mensagem}"> </i> </span>
+									<br><span><b>Data: </b> <i th:text="${#dates.format(contato.dataCadastro, 'dd/MM/yyyy')}"> </i > </span>
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-info" data-dismiss="modal"><i class="fas fa-times-circle"></i> Fechar</button>
+						      </div>
+						    </div>
+						  </div>
+						</div>
+						
+	        		 </td>
+	        		<td class="align-middle" th:text="${contato.nomeCompleto}"></td>
+	                <td class="align-middle" th:text="${contato.tipo}"></td>
+	                
+	                 <td class="align-middle" sec:authorize="hasAnyAuthority({'ROLE_CONTATO_EDITAR'})" th:if="${contato.respondido == false}"><a data-toggle="tooltip" data-placement="bottom" title="Marcar como respondido" class="fonte18" th:href="@{/contato/status/{idcontato}(idcontato=${contato.idContato},token=${contato.token})}"> <i class="fas fa-check-circle text-danger"></i></a></td>
+	                 <td class="align-middle" sec:authorize="hasAnyAuthority({'ROLE_CONTATO_EDITAR'})" th:if="${contato.respondido == true}"><a data-toggle="tooltip" data-placement="bottom" title="Marcar como não respondido" class="fonte18" th:href="@{/contato/status/{idcontato}(idcontato=${contato.idContato},token=${contato.token})}"> <i class="fas fa-check-circle text-success"></i></a></td>
+	                
+	                <td class="align-middle" th:with="contexto=${#httpServletRequest.getContextPath()+'/contato/remover/codigoid'}"> 
+	                   <a sec:authorize="hasAnyAuthority({'ROLE_CONTATO_EDITAR'})" data-toggle="tooltip" data-placement="bottom" title="Responder" class="fonte18" target="_blank" href="https://accounts.google.com/"> <i class="fas fa-paper-plane text-primary"></i></a>
+	                   <a sec:authorize="hasAnyAuthority({'ROLE_CONTATO_DELETAR'})" th:id="${contato.idContato+'?token='+contato.token}" class="fonte18" data-toggle="modal" data-target="#modal1remover" href="#!" th:onclick="setId(this, [[${contexto}]]);" ><i class="fas fa-trash-alt text-danger" data-toggle="tooltip" data-placement="bottom" title="Excluir"></i></a>
+	                </td>
+	                
+	        	</tr>
+	        	<tr th:if="${#lists.isEmpty(contatos_lista.content)}" class="text-danger" title="Nenhum resultado encontrado">
+	        	 	<td class="text-center"><b>- - -</b></td> 
+	        	 	<td class="text-center"><b>- - -</b></td> 
+	        	 	<td class="text-center"><b>- - -</b></td> 
+	        	 	<td class="text-center"><b>- - -</b></td> 
+	        	 	<td class="text-center"><b>- - -</b></td> 
+	        	 </tr>	 
+	        	
+	        </tbody>
+	        
+	        <tfoot th:if="${not #lists.isEmpty(contatos_lista.content)}">
+	            <tr class="table-sm">
+	                <th>Datalhes </th>
+	                <th>Nome</th>
+	                <th>Tipo</th>
+	                <th>Respondido</th>
+	                <th>Ações</th>
+	            </tr>
+	        </tfoot>
+	    </table>
+	    <div class="text-center">
+		    <b th:if="${#lists.isEmpty(contatos_lista.content)}" class="text-danger">Nenhum resultado encontrado</b>
+	    </div> 
+	</div>
+	
+	<nav th:if="${not #lists.isEmpty(contatos_lista.content)}">
+	  <ul class="pagination justify-content-center">
+	    <li th:if="${contatos_lista.hasPrevious()}" class="page-item">
+	      <a class="page-link" th:href="@{/contato/pesquisar(page=${contatos_lista.number-1}, size=${contatos_lista.size}, buscar_por=${buscar_por})}"><span aria-hidden="true">&laquo;</span></a>
+	    </li>
+	    <th:block th:each="number: ${#numbers.sequence(0,contatos_lista.totalPages-1)}">
+			<li class="page-item"><a class="page-link font-weight-bold fundo text-dark" th:if="${param.page == null && number == 0}" th:href="@{/contato/pesquisar(page=${number}, size=${contatos_lista.size}, buscar_por=${buscar_por})}" th:text="${number+1}"></a></li>
+			<li class="page-item"><a class="page-link font-weight-bold text-dark" th:if="${param.page == null && number != 0}" th:href="@{/contato/pesquisar(page=${number}, size=${contatos_lista.size}, buscar_por=${buscar_por})}" th:text="${number+1}"></a></li>
+			<li class="page-item"><a class="page-link font-weight-bold fundo text-dark" th:if="${param.page != null && #strings.equals(param.page, #strings.toString(number))}" th:href="@{/contato/pesquisar(page=${number}, size=${contatos_lista}, buscar_por=${buscar_por})}" th:text="${number+1}"></a></li>
+			<li class="page-item"><a class="page-link font-weight-bold text-dark" th:if="${param.page != null && not #strings.equals(param.page, #strings.toString(number))}" th:href="@{/contato/pesquisar(page=${number}, size=${contatos_lista}, buscar_por=${buscar_por})}" th:text="${number+1}"></a></li>
+	    </th:block>
+	    <li th:if="${contatos_lista.hasNext()}" class="page-item">
+	      <a class="page-link" th:href="@{/contato/pesquisar(page=${contatos_lista.number+1}, size=${contatos_lista.size}, buscar_por=${buscar_por})}"><span aria-hidden="true">&raquo;</span></a>
+	    </li>
+	  </ul>
+	</nav> 
+
+</div>
+</div>
+</div>
+	<div th:include="@{admin/modal-remove.html}"></div>
+</section>	    
+</html>

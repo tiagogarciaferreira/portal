@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="@{admin/LayoutPrivate.html}">
+
+<head>
+	<title>Dashboard - 3E Gestão de Pessoas</title>
+</head>
+
+<section layout:fragment="conteudo">
+<div class="container marg">
+<div class="accordion" id="accordionExample">
+  <div class="card">
+    <div class="card-header fundo" id="headingOne">
+        <button style="text-decoration: none;" class="btn btn-link" type="button" data-toggle="" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+           <h6 class="text-white" ><i class="fas fa-info-circle"></i> Dados</h6>
+        </button>
+    </div>
+
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body form-row">
+      
+      <div class="alert alert-warning alert-dismissible fade show bg-info form-group col-md-6" role="alert">
+		  <strong> <a th:href="@{/newsletter/listar}" class="text-white">USUÁRIOS NEWSLETTER</a></strong>
+		  <span class="close" aria-label="Close">
+		    <span aria-hidden="true"><span class="badge badge-light" ><a th:href="@{/newsletter/listar}" th:text="${homeInfo.numeroNewsLetter}"></a></span></span>
+		  </span>
+		 </div>
+      <div class="alert alert-warning alert-dismissible fade show bg-info form-group col-md-6" role="alert">
+		 <strong> <a th:href="@{/categoria/listar}" class="text-white">CATEGORIAS</a></strong>
+		  <span class="close" aria-label="Close">
+		    <span aria-hidden="true"><span class="badge badge-light"> <a th:href="@{/categoria/listar}" th:text="${homeInfo.numeroCategoria}"></a> </span></span>
+		  </span>
+	  </div>
+
+      <div class="alert alert-warning alert-dismissible fade show bg-info form-group col-md-6" role="alert">
+		  <strong> <a th:href="@{/contato/listar}" class="text-white">CONTATOS</a></strong>
+		  <span class="close" aria-label="Close">
+		    <span aria-hidden="true"><span class="badge badge-light" ><a th:href="@{/contato/listar}" th:text="${homeInfo.numeroContato}"></a></span></span>
+		  </span>
+	  </div>
+	  
+      <div class="alert alert-warning alert-dismissible fade show bg-info form-group col-md-6" role="alert">
+		 <strong> <a th:href="@{/usuario/listar}" class="text-white">USUÁRIOS</a></strong>
+		  <span class="close" aria-label="Close">
+		    <span aria-hidden="true"><span class="badge badge-light" ><a th:href="@{/usuario/listar}" th:text="${homeInfo.numeroUsuario}"></a></span></span>
+		  </span>
+	  </div>
+	  
+      <div class="alert alert-warning alert-dismissible fade show bg-info form-group col-md-6" role="alert">
+		 <strong> <a th:href="@{/noticia/listar}" class="text-white">NOTÍCIAS</a></strong>
+		  <span class="close" aria-label="Close">
+		    <span aria-hidden="true"><span class="badge badge-light" ><a th:href="@{/noticia/listar}" th:text="${homeInfo.numeroNoticia}"></a></span></span>
+		  </span>
+	  </div>
+
+      <div class="alert alert-warning alert-dismissible fade show bg-info form-group col-md-6" role="alert">
+		  <strong> <a th:href="@{/imagem/listar}" class="text-white">IMAGENS</a></strong>
+		  <span class="close" aria-label="Close">
+		    <span aria-hidden="true"><span class="badge badge-light" ><a th:href="@{/imagem/listar}" th:text="${homeInfo.numeroImagem}"></a></span></span>
+		  </span>
+	  </div>    
+      
+   
+      </div>
+    </div>
+  </div>
+<!--   <div class="card">
+    <div class="card-header fundo" id="headingTwo">
+        <button style="text-decoration: none;" class="btn btn-link collapsed" type="button" data-toggle="" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          <h6 class="text-white"><i class="fas fa-calendar-minus"></i> Calendário</h6>
+        </button>
+    </div>
+    <div id="collapseTwo" class="collapse show align-self-center" aria-labelledby="headingTwo" data-parent="#accordionExample">
+      <div class="card-body ">
+		
+		<div class="icalendar">
+  <div class="icalendar__month">
+    <div class="icalendar__prev" onclick="moveDate('prev')">
+      <span>&laquo;</span>
+    </div>
+    <div class="icalendar__current-<a href='https://www.jqueryscript.net/time-clock/'>date</a>\">
+      <h2 id="icalendarMonth"></h2>
+      <div>
+        <div id="icalendarDateStr"></div>
+      </div>
+    </div>
+    <div class="icalendar__next" onclick="moveDate('next')">
+      <span>&raquo;</span>
+    </div>
+  </div>
+  <div class="icalendar__week-days">
+        <div>DOM</div><div>SEG</div><div>TER</div><div>QUA</div><div>QUI</div><div>SEX</div><div>SAB</div>
+  </div>
+  <div class="icalendar__days"></div>
+</div>
+
+      </div>
+    </div>
+  </div> -->
+</div>
+</div>
+		
+</section>
+</html>

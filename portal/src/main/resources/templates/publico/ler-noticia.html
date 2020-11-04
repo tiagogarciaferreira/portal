@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="@{componente/LayoutPublico.html}">
+<head>
+	<title>Noticia - 3E Gestão de Pessoas</title>
+</head>
+
+<section layout:fragment="conteudo">
+<div class="container">
+<div class="card marg">
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb fundo">
+    <li ><i class="fas fa-newspaper text-white"></i> <a  th:href="@{/noticia/listar-noticias(buscar_por=${buscar_por})}"> <b>Notícias</b></a> <span>&raquo; </span> </li>
+    <li ><a > <b>Titulo titulo</b></a></li>
+  </ol>
+</nav>
+
+
+<div id="carouselControls" class="carousel slide" data-ride="carousel" style="margin-top: -15px;">
+  <div class="carousel-inner">
+  
+  <th:block th:if="${not #lists.isEmpty(noticia_ler.imagens)}" th:each="noticia,iStat: ${noticia_ler.imagens}">
+  	 <div th:if="${iStat.index == 0}" class="carousel-item active">
+  	    <img th:with="img=${'/images/noticias/' + noticia.nome}" th:src="@{${img}}" class="rounded mx-auto d-block w-100">
+    </div>
+    <div th:if="${iStat.index > 0}" class="carousel-item">
+   		 <img th:with="img=${'/images/noticias/' + noticia.nome}" th:src="@{${img}}" class="rounded mx-auto d-block w-100">
+    </div>
+  </th:block>
+  </div>
+  <a class="carousel-control-prev" href="#carouselControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon bg-info border-r" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon bg-info border-r" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+<div class="card-header text-info fonte13">
+	<label>Publicado por: 3E - </label>
+	<label>Noticías - </label>
+	<label th:text="${noticia_ler.categoria.nome + ' - '}"></label>
+	<label><i class="fas fa-map-marker-alt"></i> </label>
+    <label> Em </label > <label th:text="${noticia_ler.emLocal}"></label>
+    <label> - <i class="far fa-calendar-minus"></i> </label > 
+    <label th:text="${#temporals.format(noticia_ler.dataCadastro, 'dd-MM-yyyy HH:mm:ss')}"></label>
+	
+</div>
+
+<div class="card-header text-center card-header-none"><h3 class="text-info" th:text="${noticia_ler.titulo}"></h3>
+	<p class="text-justify" th:utext="${noticia_ler.texto}" ></p>
+</div>
+
+
+<div id="accordionShare">
+    <div class="card-header" id="headingOne">
+      <h2 class="mb-0">
+        <button style="text-decoration: none;" title="Compartilhar" class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <h6 class="text-info"><i class="fas fa-share-alt-square"></i> Compartilhar</h6>
+        </button>
+      </h2>
+    </div>
+
+    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionShare">
+      <div class="card-body">
+		     <a target="_blank" th:href="${'https://www.facebook.com/sharer.php?u='+dominio+'?titulo='+noticia_ler.titulo+'&token='+noticia_ler.token}"><i class="fab fa-facebook"></i> Facebook-</a>
+		     <a target="_blank" th:href="${'whatsapp://send?text='+dominio+'?titulo='+noticia_ler.titulo+'&token='+noticia_ler.token}"><i class="fab fa-whatsapp"></i> WhatsApp-</a>
+		     <a target="_blank" th:href="${'https://www.linkedin.com/shareArticle?mini=true&url='+dominio+'?titulo='+noticia_ler.titulo+'&token='+noticia_ler.token}"><i class="fab fa-linkedin tam-icone"></i> Linkedin-</a>
+		     <a target="_blank" th:href="${'https://twitter.com/share?url='+dominio+'&?titulo='+noticia_ler.titulo+'&token='+noticia_ler.token}"><i class="fab fa-twitter"></i> Twiter-</a>
+		     <a target="_blank" th:href="${'https://telegram.me/share/url?url='+dominio+'?titulo='+noticia_ler.titulo+'&token='+noticia_ler.token}"><i class="fab fa-telegram-plane"></i> Telegram-</a>
+		     <a class="js-copy-click" href="#!" data-toggle="tooltip" data-placement="top"><i class="far fa-copy"></i> <span id="a_copia">Copiar link</span> </a>
+		     <input id="copia-link" type="hidden" th:value="${dominio+'?titulo='+noticia_ler.titulo+'&token='+noticia_ler.token}" class="js-copy-text"/>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+</html>

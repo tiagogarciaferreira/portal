@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+	<meta http-equiv="Content_Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link type="text/css"  rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+	<link type="text/css"  rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+	<link type="text/css"  rel="stylesheet" th:href="@{/css/css-all.css}" />
+	<link type="image/png" rel="icon" 	    th:href="@{/img/icon.ico}" />
+	<title>Nova Senha - 3E Gestão de Pessoas</title>
+</head>
+
+<body>
+<div class="container marg col-md-8">
+<div th:include="@{componente/mensagem.html}"></div>
+<div class="card mb-3">
+<div class="card-header fundo"><h5><b class="text-white">Cadastro de nova senha</b></h5></div>
+<div class="text-center card-header card-header-none"><a th:href="@{/}"><img title="3E" alt="3E" th:src="@{/img/logo.png}" /></a></div>
+  <div class="card-body">
+				<form id="form_nova_senha" name="form_nova_senha"
+					th:action="@{/senha/update}" method="POST">
+					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+					<input id="user" name="user" th:value="${user}" type="text"  hidden="hidden" readonly="readonly" >
+					<input id="token" name="token" th:value="${token}" type="text"  hidden="hidden" readonly="readonly" >
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label for="nova_senha" class="label-input">Nova senha<span class="text-danger" data-toggle="tooltip" data-placement="bottom" title="Campo obrigatório">*</span></label> <input id="nova_senha" type="password"
+								class="form-control" name="nova_senha" placeholder="Informe a nova senha">
+						</div>
+						<div class="form-group col-md-6">
+							<label for="confirme_nova_senha" class="label-input">Confirme a nova senha<span class="text-danger" data-toggle="tooltip" data-placement="bottom" title="Campo obrigatório">*</span></label> <input id="confirme_nova_senha" type="password"
+								class="form-control" name="confirme_nova_senha" placeholder="Confirme a nova senha">
+						</div>
+					</div>
+					<button type="submit" class="btn btn-primary pad-btn">
+						<i class="fas fa-paper-plane"></i> Atualizar
+					</button>
+				</form>
+			</div>
+	<div class="card-header fundo text-center" th:include="@{componente/rodape.html}"></div>
+</div>
+</div>
+
+	<script type="text/javascript" th:src="@{/jquery/jquery.min.js}" ></script>
+	<script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.bundle.min.js}"></script>	
+	<script type="text/javascript" th:src="@{/validation/jquery.validate.min.js}" ></script>
+	<script type="text/javascript" th:src="@{/validation/additional-methods.min.js}"></script>
+	<script type="text/javascript" th:src="@{/validation/messages_pt_BR.js}"></script>	
+    <script type="text/javascript" th:src="@{/js/validation.public.js}"></script>
+    <script type="text/javascript" th:src="@{/js/js-all.js}"></script>
+
+</body>
+</html>

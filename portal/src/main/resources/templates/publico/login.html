@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+	<meta http-equiv="Content_Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link type="text/css"  rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+	<link type="text/css"  rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+	<link type="text/css"  rel="stylesheet" th:href="@{/css/css-all.css}" />
+	<link type="image/png" rel="icon" 	    th:href="@{/img/icon.ico}" />
+	<title>Login - 3E Gestão de Pessoas</title>
+</head>
+
+<body>
+<div class="container col-md-8 marg">
+<div class="card">
+<div class="card-header text-center fundo"><h5><b class="text-white">LOGIN PORTAL 3E</b></h5></div>
+<div class="text-center card-header border-r card-header-none"><a th:href="@{/}"><img title="3E"  alt="3E" th:src="@{/img/logo.png}" /></a></div>
+ 	<div class="card-body">
+ 	
+ 		<div class="form-group col-md-8 offset-md-2">
+		  	<div th:if="${param.login}" class="alert alert-danger alert-dismissible fade show bg-danger" role="alert">
+			  <strong class="text-white text-nowrap bd-highlight"><i class="fas fa-times-circle"></i> <strong>Usuário ou senha inválidos.</strong></strong>
+			</div>
+		</div>
+ 	
+ 		 <div class="form-group col-md-8 offset-md-2">
+		    <div th:if="${param.session}" class="alert alert-info alert-dismissible fade show bg-info" role="alert">
+			  <strong class="text-white text-nowrap bd-highlight"><i class="fas fa-info-circle"></i> <strong>Faça login novamente.</strong></strong>
+			</div>
+		</div>
+ 	
+		 <div class="form-group col-md-8 offset-md-2">
+			<div th:if="${param.logout}" class="alert alert-success alert-dismissible fade show bg-success" role="alert">
+			  <strong class="text-white text-nowrap bd-highlight"><i class="fas fa-check-circle"></i> <strong >Logout com sucesso.</strong></strong>
+			</div>
+		</div>
+		
+				<form id="form_login" name="form_login"
+					th:action="@{/logar}" method="POST">
+					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+					<div class="form-group">
+						<div class="form-group col-md-8 offset-md-2">
+							<label for="username" class="label-input">Usuário<span class="text-danger" data-toggle="tooltip" data-placement="bottom" title="Campo obrigatório">*</span></label> <input id="username" type="email"
+								class="form-control"  name="username" placeholder="Informe seu usuário">
+						</div>
+						<div class="form-group col-md-8 offset-md-2">
+							<label for="password" class="label-input">Senha<span class="text-danger" data-toggle="tooltip" data-placement="bottom" title="Campo obrigatório">*</span></label> <input id="password" type="password"
+								class="form-control" name="password" placeholder="Informe sua senha">
+						</div>
+					</div>
+					<div class="form-group col-md-8 offset-md-2">
+						<button type="submit" class="btn btn-primary form-group col-md-4">
+							<i class="fas fa-unlock-alt"></i> Entrar
+						</button>
+						<button type="reset" class="btn btn-danger form-group col-md-4">
+							<i class="fas fa-eraser"></i> Limpar
+						</button>
+					</div>
+						<div class="form-group col-md-8 offset-md-2">
+							<a th:href="@{/senha/email-redefinir-senha}"> <b>Esqueceu sua senha ?</b> </a>	
+						</div>
+				</form>
+			</div>
+			<div class="card-header fundo text-center" th:include="@{componente/rodape.html}"></div>
+</div>
+</div>
+
+	<script type="text/javascript" th:src="@{/jquery/jquery.min.js}" ></script>
+	<script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.bundle.min.js}"></script>	
+	<script type="text/javascript" th:src="@{/validation/jquery.validate.min.js}" ></script>
+	<script type="text/javascript" th:src="@{/validation/additional-methods.min.js}"></script>
+	<script type="text/javascript" th:src="@{/validation/messages_pt_BR.js}"></script>	
+    <script type="text/javascript" th:src="@{/js/validation.public.js}"></script>
+    <script type="text/javascript" th:src="@{/js/js-all.js}"></script>
+
+</body>
+</html>
